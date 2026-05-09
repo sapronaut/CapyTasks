@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CapyTasks — Happy Productivity</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <link rel="stylesheet" href="capystyle.css" />
+</head>
+<body>
+
+<div class="bg-blob" id="blob1"></div>
+<div class="bg-blob" id="blob2"></div>
+<div class="bg-blob" id="blob3"></div>
+
+<div class="celebration" id="celebration">
+  <div class="cel-card">
+    <span class="cel-em">🎉</span>
+    <div class="cel-title">All done!</div>
+    <div class="cel-sub">
+      Your capybara is absolutely thriving.<br/>
+      You crushed every single task today.
+    </div>
+    <button class="cel-close" onclick="closeCelebration()">
+      Keep going →
+    </button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="page">
+
+  <header>
+    <div class="brand" onclick="petCapybara()">
+      <em>Capy</em>Tasks
+    </div>
+
+    <div class="header-right">
+      <div class="streak-badge">
+        🔥 <span id="streakCount">0</span> day streak
+      </div>
+
+      <button class="pet-btn" onclick="petCapybara()" title="Pet the capybara!">
+        🐾
+      </button>
+    </div>
+  </header>
+
+  <div class="hero">
+
+    <div>
+      <h1 class="hero-title">
+        Tasks that make<br/>
+        <em>everyone</em><br/>
+        happy.
+      </h1>
+
+      <p class="hero-sub">
+        Complete your to-dos and watch your capybara friend's happiness soar.
+        A calmer, warmer way to get things done.
+      </p>
+
+      <div class="hint-row">
+        <span class="kbd">Enter</span> to add ·
+        Click text to edit ·
+        Drag to reorder ·
+        <span class="kbd">🐾</span> to pet
+      </div>
+    </div>
+
+    <div class="capy-panel">
+
+      <div class="capy-svg-wrap" onclick="petCapybara()" title="Click to pet!">
+        <div class="mood-ring" id="moodRing"></div>
+
+        <!-- SVG -->
+        <svg id="capySvg" width="160" height="130" viewBox="0 0 160 130" xmlns="http://www.w3.org/2000/svg">
+
+          <ellipse cx="80" cy="97" rx="56" ry="30" fill="#B8904A"/>
+          <ellipse cx="80" cy="90" rx="51" ry="26" fill="#C8A060"/>
+
+          <ellipse cx="40" cy="112" rx="14" ry="9" fill="#A07838"/>
+          <ellipse cx="62" cy="118" rx="14" ry="9" fill="#A07838"/>
+          <ellipse cx="98" cy="118" rx="14" ry="9" fill="#A07838"/>
+          <ellipse cx="120" cy="112" rx="14" ry="9" fill="#A07838"/>
+
+          <ellipse cx="80" cy="65" rx="34" ry="28" fill="#C8A060"/>
+
+          <g id="earL" style="transform-origin:52px 38px">
+            <ellipse cx="52" cy="38" rx="13" ry="10" fill="#A07838"/>
+            <ellipse cx="52" cy="39" rx="7" ry="6" fill="#D4A070"/>
+          </g>
+
+          <g id="earR" style="transform-origin:108px 38px">
+            <ellipse cx="108" cy="38" rx="13" ry="10" fill="#A07838"/>
+            <ellipse cx="108" cy="39" rx="7" ry="6" fill="#D4A070"/>
+          </g>
+
+          <ellipse cx="63" cy="67" rx="7" ry="6.5" fill="#2C2822"/>
+          <ellipse cx="97" cy="67" rx="7" ry="6.5" fill="#2C2822"/>
+
+          <ellipse cx="65.5" cy="65" rx="2.5" ry="2.5" fill="#fff"/>
+          <ellipse cx="99.5" cy="65" rx="2.5" ry="2.5" fill="#fff"/>
+
+          <ellipse cx="63" cy="67" rx="7" ry="6.5" fill="#C8A060" id="blinkL"/>
+          <ellipse cx="97" cy="67" rx="7" ry="6.5" fill="#C8A060" id="blinkR"/>
+
+          <path id="capyMouth"
+            d="M 68 88 Q 80 93 92 88"
+            stroke="#8B6040"
+            stroke-width="2.5"
+            fill="none"
+            stroke-linecap="round"/>
+
+          <ellipse cx="80" cy="88" rx="8" ry="4" fill="#C4905A"/>
+
+          <ellipse cx="52" cy="76" rx="9" ry="6" fill="#E88090" opacity="0" id="blushL"/>
+          <ellipse cx="108" cy="76" rx="9" ry="6" fill="#E88090" opacity="0" id="blushR"/>
+
+        </svg>
+      </div>
+
+      <div class="hap-row">
+        <div class="hap-top">
+          <span>Happiness</span>
+          <span class="hap-pct" id="pctLabel">0%</span>
+        </div>
+
+        <div class="hap-track">
+          <div class="hap-fill" id="meterFill" style="width:0%">
+            <div class="hap-shimmer"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mood-label" id="moodLabel">
+        Waiting for tasks…
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-chip">
+          <div class="stat-v" id="statTotal">0</div>
+          <div class="stat-l">Tasks</div>
+        </div>
+
+        <div class="stat-chip">
+          <div class="stat-v" id="statDone">0</div>
+          <div class="stat-l">Done</div>
+        </div>
+
+        <div class="stat-chip">
+          <div class="stat-v" id="statPets">0</div>
+          <div class="stat-l">Pets 🐾</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ADD TASK -->
+  <div class="add-wrap">
+
+    <div class="add-main">
+      <input
+        class="add-input"
+        id="taskInput"
+        type="text"
+        placeholder="What needs doing today?"
+        onkeydown="if(event.key==='Enter')addTask()"
+      />
+
+      <button class="add-btn" onclick="addTask()">
+        Add →
+      </button>
+    </div>
+
+    <div class="add-meta">
+
+      <div class="cat-pick" id="catPick">
+        <div class="cat-dot sel" data-cat="none">·</div>
+        <div class="cat-dot" data-cat="work">💼</div>
+        <div class="cat-dot" data-cat="home">🏠</div>
+        <div class="cat-dot" data-cat="health">💪</div>
+        <div class="cat-dot" data-cat="fun">✨</div>
+      </div>
+
+      <div class="pri-pick" id="priPick">
+        <button class="pri-btn" data-pri="low">Low</button>
+        <button class="pri-btn sel-med" data-pri="med">Med</button>
+        <button class="pri-btn" data-pri="high">High</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="filter-row">
+    <button class="filter-btn active" data-filter="all" onclick="setFilter('all')">All</button>
+    <button class="filter-btn" data-filter="active" onclick="setFilter('active')">Active</button>
+    <button class="filter-btn" data-filter="done" onclick="setFilter('done')">Done</button>
+
+    <span class="filter-sep"></span>
+
+    <button class="ctrl-btn" onclick="cycleSortOrder()" id="sortBtn">
+      ↕ Manual
+    </button>
+
+    <button class="ctrl-btn danger" onclick="clearDone()">
+      Clear done
+    </button>
+  </div>
+
+  <div class="tasks-header">
+    <div class="tasks-title">Your tasks</div>
+    <div class="tasks-meta" id="tasksMeta"></div>
+  </div>
+
+  <div
+    class="task-list"
+    id="taskList"
+    ondragover="onDragOver(event)"
+    ondrop="onDrop(event)"
+    ondragleave="onDragLeave(event)"
+  ></div>
+
+  <footer>
+    <span class="footer-quote">
+      Every task completed is a capybara smile earned.
+    </span>
+
+    <button class="ctrl-btn danger" onclick="resetAll()">
+      Reset all
+    </button>
+  </footer>
+
+</div>
+
+<script src="capyjs.js"></script>
+</body>
+</html>
