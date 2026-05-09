@@ -1,2 +1,24 @@
-# CapyTasks
-CapyTasks is a cozy capybara-themed productivity app built with HTML, CSS, and JavaScript. It features task management, drag-and-drop reordering, categories, priorities, streak tracking, animations, and an interactive capybara companion that reacts to your productivity in real time.
+# CapyTasks 🐾
+
+A cozy capybara-themed productivity app built with HTML, CSS, and JavaScript.
+
+## Features
+
+- Add tasks
+- Drag & drop reorder
+- Task categories
+- Priority system
+- Animated capybara companion
+- Happiness meter
+- Confetti celebration
+- Local storage saving
+
+## Tech Stack
+
+- HTML
+- CSS
+- Vanilla JavaScript
+
+## Live Demo
+
+Coming soon.
